@@ -93,3 +93,39 @@ it('home page renders correctly in english', function () use ($langDir): void {
         ->toContain('Military Parish of Saint Margaret')
         ->toContain('Schedules');
 });
+
+it('home page has meta description tag', function (): void {
+    $router = makeHomeRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)->toContain('<meta name="description"')
+        ->and($response->body)->toContain(__('general.meta_home_description'));
+});
+
+it('home page has canonical link tag', function (): void {
+    $router = makeHomeRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)->toContain('<link rel="canonical"')
+        ->and($response->body)->toContain('/es/');
+});
+
+it('home page has open graph meta tags', function (): void {
+    $router = makeHomeRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)
+        ->toContain('property="og:title"')
+        ->toContain('property="og:description"')
+        ->toContain('property="og:url"')
+        ->toContain('property="og:type"');
+});
+
+it('home page has json-ld script with ReligiousOrganization', function (): void {
+    $router = makeHomeRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)
+        ->toContain('application/ld+json')
+        ->toContain('ReligiousOrganization');
+});
