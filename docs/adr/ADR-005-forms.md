@@ -1,31 +1,46 @@
-# ADR-005 — Formularios de contacto
+# ADR-005 — Motor de formularios
 
-**Estado:** Supersedido por ADR-001 (sitio estático)
+**Estado:** Aceptado  
 **Fecha:** 2026-07-17
 
 ---
 
-## Contexto
-
-El pliego inicial preveía un motor de formularios con validación en servidor,
-envío de correo y registro de consentimiento RGPD.
-
 ## Decisión
 
-**No se implementa un motor de formularios en servidor.**
+Los formularios se implementan con:
 
-El sitio se despliega como HTML estático en GitHub Pages (ver ADR-001),
-que no puede ejecutar PHP en tiempo de petición. Por tanto:
+- **Laravel Form Requests** para validación en servidor.
+- **Blade** para renderizado.
+- **Alpine.js** para estados visuales en cliente.
+- **Honeypot** como protección anti-spam principal.
+- **Rate limiting** mediante middleware de Laravel.
+- **Laravel Mail** desacoplado con driver configurable por entorno.
 
-- Las páginas de servicio enlazan a `/contacto` en lugar de incrustar formularios.
-- La página `/contacto` muestra los datos de contacto oficiales (cuando estén confirmados)
-  con estado `pending` hasta entonces.
-- Si en el futuro se requiere un formulario funcional, las opciones son:
-  - Servicio externo (Formspree, Netlify Forms, etc.) con acción `action=""` en el HTML.
-  - Migrar el despliegue a un servidor PHP con `public/index.php`.
+---
+
+## Flujo
+
+```
+Usuario rellena → Validación Alpine → POST → CSRF check
+→ Rate limit → Honeypot check → Form Request validation
+→ Servicio de envío → Confirmación con referencia → Email log (dev) / real (prod)
+```
+
+---
+
+## Formularios iniciales (Fase 8)
+
+- Consulta general
+- Intención de misa
+- Solicitud de certificado
+- Visita de grupo
+- Acompañamiento espiritual
+- Solicitud genérica de servicio
+
+---
 
 ## Consecuencias
 
-- Sin procesamiento POST, sin envío de correo, sin registro RGPD desde el frontend.
-- El canal de contacto es la información publicada en `/contacto`.
-- La decisión es revisable si el despliegue deja de ser estático.
+- Los errores de validación se muestran junto a cada campo.
+- El consentimiento RGPD se registra con timestamp y versión.
+- En desarrollo, el mail usa el driver `log`.

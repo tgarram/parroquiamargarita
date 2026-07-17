@@ -244,7 +244,6 @@ return function (Router $router, Renderer $renderer): void {
             $r->get('/laboratorio', fn (Request $req) => new Response(
                 $renderer->renderInLayout('layouts.base', 'pages.laboratorio', [
                     'title' => __('general.lab_title'),
-                    'description' => __('general.lab_title'),
                     'locale' => $locale,
                     'path' => '/laboratorio',
                 ])

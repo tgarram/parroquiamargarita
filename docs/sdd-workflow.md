@@ -32,9 +32,6 @@
 | 19 | Página de historia y patrimonio | ✅ Completada |
 | 20 | Servicios pastorales (índice + detalle) | ✅ Completada |
 | 21 | Página de visita | ✅ Completada |
-| 22 | Página de inicio enriquecida (8 secciones) | ✅ Completada |
-| 23 | RSS feed (/feed.xml) y autodiscovery | ✅ Completada |
-| 24 | Sitemap completo con slugs de servicios | ✅ Completada |
 
 ---
 
