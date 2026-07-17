@@ -32,11 +32,11 @@ it('noticias index returns 200', function (): void {
     expect($response->status)->toBe(200);
 });
 
-it('noticias index shows empty notice when no published news', function (): void {
+it('noticias index lists published articles', function (): void {
     $router = makeNoticiasRouter();
     $response = $router->dispatch(new Request('GET', '/es/noticias', [], [], []));
 
-    expect($response->body)->toContain(__('general.news_empty'));
+    expect($response->body)->toContain('bienvenida-web');
 });
 
 it('noticias index contains breadcrumb navigation', function (): void {
