@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Parroquia\Content\ContentRepository;
 use Parroquia\Support\Config;
 use Parroquia\Support\Lang;
 use Parroquia\Support\Vite;
@@ -39,6 +40,19 @@ if (! function_exists('component')) {
     function component(string $name, array $props = []): string
     {
         return Renderer::component($name, $props);
+    }
+}
+
+if (! function_exists('content')) {
+    function content(): ContentRepository
+    {
+        static $repo = null;
+
+        if ($repo === null) {
+            $repo = new ContentRepository((string) Config::get('content.path'));
+        }
+
+        return $repo;
     }
 }
 

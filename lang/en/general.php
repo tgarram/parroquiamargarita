@@ -13,4 +13,7 @@ return [
     'footer_nav' => 'Footer navigation',
     'nav_home' => 'Home',
     'page_not_found' => 'Page not found',
+    'nav_open_menu' => 'Open navigation menu',
+    'nav_close_menu' => 'Close navigation menu',
+    'nav_main' => 'Main navigation',
 ];
