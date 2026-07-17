@@ -115,6 +115,54 @@ return function (Router $router, Renderer $renderer): void {
                 );
             });
 
+            $r->get('/aviso-legal', function (Request $req) use ($renderer, $locale): Response {
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.legal', [
+                        'title' => __('general.legal_title'),
+                        'description' => __('general.meta_legal_description'),
+                        'locale' => $locale,
+                        'path' => '/aviso-legal',
+                        'page' => content()->find('paginas', 'aviso-legal', '*'),
+                        'titleKey' => 'general.legal_title',
+                        'subtitleKey' => 'general.legal_subtitle',
+                        'pendingKey' => 'general.legal_pending',
+                        'headingId' => 'legal-title',
+                    ])
+                );
+            });
+
+            $r->get('/privacidad', function (Request $req) use ($renderer, $locale): Response {
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.legal', [
+                        'title' => __('general.privacy_title'),
+                        'description' => __('general.meta_privacy_description'),
+                        'locale' => $locale,
+                        'path' => '/privacidad',
+                        'page' => content()->find('paginas', 'privacidad', '*'),
+                        'titleKey' => 'general.privacy_title',
+                        'subtitleKey' => 'general.privacy_subtitle',
+                        'pendingKey' => 'general.privacy_pending',
+                        'headingId' => 'privacy-title',
+                    ])
+                );
+            });
+
+            $r->get('/accesibilidad', function (Request $req) use ($renderer, $locale): Response {
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.legal', [
+                        'title' => __('general.accessibility_title'),
+                        'description' => __('general.meta_accessibility_description'),
+                        'locale' => $locale,
+                        'path' => '/accesibilidad',
+                        'page' => content()->find('paginas', 'accesibilidad', '*'),
+                        'titleKey' => 'general.accessibility_title',
+                        'subtitleKey' => 'general.accessibility_subtitle',
+                        'pendingKey' => 'general.accessibility_pending',
+                        'headingId' => 'accessibility-title',
+                    ])
+                );
+            });
+
             $r->get('/laboratorio', fn (Request $req) => new Response(
                 $renderer->renderInLayout('layouts.base', 'pages.laboratorio', [
                     'title' => __('general.lab_title'),

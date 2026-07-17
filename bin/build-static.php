@@ -41,6 +41,9 @@ $baseRoutes = [
     ['/sobre', 'sobre/index.html'],
     ['/horarios', 'horarios/index.html'],
     ['/contacto', 'contacto/index.html'],
+    ['/aviso-legal', 'aviso-legal/index.html'],
+    ['/privacidad', 'privacidad/index.html'],
+    ['/accesibilidad', 'accesibilidad/index.html'],
     ['/laboratorio', 'laboratorio/index.html'],
 ];
 
