@@ -68,3 +68,43 @@ it('header renders in catalan with translated labels', function () use ($langDir
         ->toContain('Parròquia Castrense de Santa Margalida')
         ->toContain('Inici');
 });
+
+it('header hamburger button has aria-controls targeting mobile-menu', function () use ($langDir): void {
+    Lang::setLocale('es');
+    Lang::load($langDir);
+    $router = makeHeaderRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)
+        ->toContain('aria-controls="mobile-menu"')
+        ->toContain('id="mobile-menu"');
+});
+
+it('logo link has descriptive aria-label', function () use ($langDir): void {
+    Lang::setLocale('es');
+    Lang::load($langDir);
+    $router = makeHeaderRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)->toContain('aria-label=');
+});
+
+it('lang-switcher links have full language name as aria-label', function () use ($langDir): void {
+    Lang::setLocale('es');
+    Lang::load($langDir);
+    $router = makeHeaderRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)
+        ->toContain('aria-label="Català"')
+        ->toContain('aria-label="English"');
+});
+
+it('lang-switcher nav has translated aria-label', function () use ($langDir): void {
+    Lang::setLocale('es');
+    Lang::load($langDir);
+    $router = makeHeaderRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)->toContain('Selector de idioma');
+});

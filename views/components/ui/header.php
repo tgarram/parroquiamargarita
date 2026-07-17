@@ -16,7 +16,8 @@ $navItems = $navItems ?? [];
             <!-- Logotipo -->
             <a
                 href="<?= e(base_path('/'.$locale.'/')) ?>"
-                class="shrink-0 font-serif text-sm font-semibold leading-tight tracking-wide text-[var(--color-navy)] hover:text-[var(--color-burgundy)] transition-colors focus-visible:rounded"
+                aria-label="<?= e(__('general.site_name')).' — '.__('general.nav_home') ?>"
+                class="shrink-0 font-serif text-sm font-semibold leading-tight tracking-wide text-[var(--color-navy)] hover:text-[var(--color-burgundy)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--color-navy)] focus-visible:outline-offset-2 focus-visible:rounded"
             >
                 <?= e(__('general.site_name')) ?>
             </a>
@@ -27,10 +28,10 @@ $navItems = $navItems ?? [];
                 <a
                     href="<?= e($item['href']) ?>"
                     <?= isset($item['active']) && $item['active'] ? 'aria-current="page"' : '' ?>
-                    class="px-3 py-2 text-sm font-medium rounded transition-colors
+                    class="px-3 py-2 text-sm font-medium rounded transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--color-navy)] focus-visible:outline-offset-2
                         <?= (isset($item['active']) && $item['active'])
                             ? 'text-[var(--color-navy)] bg-[var(--color-surface)]'
-                            : 'text-[var(--color-text-muted,var(--color-muted))] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)]' ?>"
+                            : 'text-[var(--color-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)]' ?>"
                 >
                     <?= e($item['label']) ?>
                 </a>
@@ -44,9 +45,10 @@ $navItems = $navItems ?? [];
                 <!-- Botón hamburguesa (solo móvil) -->
                 <button
                     type="button"
-                    class="md:hidden inline-flex items-center justify-center w-9 h-9 rounded text-[var(--color-text)] hover:bg-[var(--color-surface)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--color-navy)] focus-visible:outline-offset-2"
+                    class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded text-[var(--color-text)] hover:bg-[var(--color-surface)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--color-navy)] focus-visible:outline-offset-2"
                     @click="open = !open"
                     :aria-expanded="open.toString()"
+                    aria-controls="mobile-menu"
                     :aria-label="open ? '<?= e(__('general.nav_close_menu')) ?>' : '<?= e(__('general.nav_open_menu')) ?>'"
                 >
                     <!-- Icono hamburgesa -->
@@ -74,6 +76,7 @@ $navItems = $navItems ?? [];
         class="md:hidden border-t border-[var(--color-border)] bg-[var(--color-background)]"
         @click.outside="open = false"
         id="mobile-menu"
+        aria-live="polite"
     >
         <nav aria-label="<?= e(__('general.nav_main')) ?>" class="mx-auto max-w-7xl px-4 py-3 flex flex-col gap-1">
             <?php foreach ($navItems as $item) { ?>
@@ -81,7 +84,7 @@ $navItems = $navItems ?? [];
                 href="<?= e($item['href']) ?>"
                 <?= isset($item['active']) && $item['active'] ? 'aria-current="page"' : '' ?>
                 @click="open = false"
-                class="px-3 py-2.5 text-sm font-medium rounded transition-colors
+                class="px-3 py-2.5 text-sm font-medium rounded transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--color-navy)] focus-visible:outline-offset-2
                     <?= (isset($item['active']) && $item['active'])
                         ? 'text-[var(--color-navy)] bg-[var(--color-surface)]'
                         : 'text-[var(--color-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)]' ?>"

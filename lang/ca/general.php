@@ -52,6 +52,7 @@ return [
     'meta_news_description' => 'Notícies i comunicats de la Parròquia Castrense de Santa Margalida de Mallorca.',
     'meta_schedules_description' => 'Horaris de misses i celebracions litúrgiques de la Parròquia Castrense de Santa Margalida.',
     'meta_contact_description' => 'Informació de contacte de la Parròquia Castrense de Santa Margalida de Mallorca.',
+    'lang_switcher_label' => 'Selector d\'idioma',
     'legal_title' => 'Avís Legal',
     'legal_subtitle' => 'Informació legal del lloc web.',
     'legal_pending' => 'L\'avís legal està pendent de revisió jurídica.',
