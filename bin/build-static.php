@@ -37,9 +37,12 @@ $distDir = dirname(__DIR__).'/dist';
 // ---------------------------------------------------------------------------
 $baseRoutes = [
     ['/', 'index.html'],
+    ['/historia', 'historia/index.html'],
+    ['/servicios', 'servicios/index.html'],
     ['/noticias', 'noticias/index.html'],
     ['/sobre', 'sobre/index.html'],
     ['/horarios', 'horarios/index.html'],
+    ['/visita', 'visita/index.html'],
     ['/contacto', 'contacto/index.html'],
     ['/aviso-legal', 'aviso-legal/index.html'],
     ['/privacidad', 'privacidad/index.html'],
@@ -47,10 +50,18 @@ $baseRoutes = [
     ['/laboratorio', 'laboratorio/index.html'],
 ];
 
+$contentRepo = new ContentRepository(Config::get('content.path'));
+
 // Añadir rutas de detalle de noticias publicadas
 $noticiasSlugs = array_map(
     static fn ($item) => $item->slug,
-    (new ContentRepository(Config::get('content.path')))->findAll('noticias', 'published')
+    $contentRepo->findAll('noticias', 'published')
+);
+
+// Añadir rutas de detalle de servicios (todos los estados para pre-render)
+$serviciosSlugs = array_map(
+    static fn ($item) => $item->slug,
+    $contentRepo->findAll('servicios', '*')
 );
 
 $routes = [];
@@ -62,6 +73,10 @@ foreach (['es', 'ca', 'en'] as $loc) {
 
     foreach ($noticiasSlugs as $slug) {
         $routes[] = [$loc, '/noticias/'.$slug, $loc.'/noticias/'.$slug.'/index.html'];
+    }
+
+    foreach ($serviciosSlugs as $slug) {
+        $routes[] = [$loc, '/servicios/'.$slug, $loc.'/servicios/'.$slug.'/index.html'];
     }
 }
 
@@ -117,10 +132,14 @@ echo "  OK    / → dist/index.html (redirect)\n";
 // ---------------------------------------------------------------------------
 $sitemapUrl = rtrim((string) Config::get('app.url', ''), '/');
 $sitemapLocales = ['es', 'ca', 'en'];
-$sitemapPaths = ['/', '/noticias', '/horarios', '/contacto'];
+$sitemapPaths = ['/', '/historia', '/servicios', '/noticias', '/horarios', '/visita', '/contacto'];
 
 foreach ($noticiasSlugs as $slug) {
     $sitemapPaths[] = '/noticias/'.$slug;
+}
+
+foreach ($serviciosSlugs as $slug) {
+    $sitemapPaths[] = '/servicios/'.$slug;
 }
 
 $xmlUrls = '';

@@ -163,6 +163,84 @@ return function (Router $router, Renderer $renderer): void {
                 );
             });
 
+            $r->get('/historia', function (Request $req) use ($renderer, $locale): Response {
+                $historia = content()->find('paginas', 'historia', '*');
+                $timeline = content()->findAll('historia', 'published');
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.historia', [
+                        'title' => __('general.history_title'),
+                        'description' => __('general.meta_history_description'),
+                        'locale' => $locale,
+                        'path' => '/historia',
+                        'historia' => $historia,
+                        'timeline' => $timeline,
+                    ])
+                );
+            });
+
+            $r->get('/servicios', function (Request $req) use ($renderer, $locale): Response {
+                $servicios = content()->findAll('servicios', '*');
+
+                usort($servicios, static fn ($a, $b) => ($a->get('order', 99)) <=> ($b->get('order', 99)));
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.servicios.index', [
+                        'title' => __('general.services_title'),
+                        'description' => __('general.meta_services_description'),
+                        'locale' => $locale,
+                        'path' => '/servicios',
+                        'servicios' => $servicios,
+                    ])
+                );
+            });
+
+            $r->get('/servicios/{slug}', function (Request $req, string $slug) use ($renderer, $locale): Response {
+                $servicio = content()->find('servicios', $slug, '*');
+
+                if ($servicio === null) {
+                    return Response::notFound();
+                }
+
+                $appUrl = config('app.url', '');
+                $jsonLd = [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'Service',
+                    'name' => $servicio->trans('title', $locale) ?? '',
+                    'description' => $servicio->trans('description', $locale) ?? '',
+                    'provider' => [
+                        '@type' => 'ReligiousOrganization',
+                        'name' => config('app.name', ''),
+                        'url' => $appUrl,
+                    ],
+                ];
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.servicios.show', [
+                        'title' => $servicio->trans('title', $locale),
+                        'description' => $servicio->trans('description', $locale) ?? __('general.meta_services_description'),
+                        'locale' => $locale,
+                        'path' => '/servicios/'.$slug,
+                        'servicio' => $servicio,
+                        'jsonLd' => $jsonLd,
+                    ])
+                );
+            });
+
+            $r->get('/visita', function (Request $req) use ($renderer, $locale): Response {
+                $visita = content()->find('paginas', 'visita', '*');
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.visita', [
+                        'title' => __('general.visit_title'),
+                        'description' => __('general.meta_visit_description'),
+                        'locale' => $locale,
+                        'path' => '/visita',
+                        'visita' => $visita,
+                    ])
+                );
+            });
+
             $r->get('/laboratorio', fn (Request $req) => new Response(
                 $renderer->renderInLayout('layouts.base', 'pages.laboratorio', [
                     'title' => __('general.lab_title'),

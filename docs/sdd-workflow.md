@@ -29,6 +29,9 @@
 | 16 | Rendimiento: favicon, theme-color, carga async de fuentes | ✅ Completada |
 | 17 | Auditoría accesibilidad WCAG 2.2 AA | ✅ Completada |
 | 18 | Preparación de producción | ✅ Completada |
+| 19 | Página de historia y patrimonio | ✅ Completada |
+| 20 | Servicios pastorales (índice + detalle) | ✅ Completada |
+| 21 | Página de visita | ✅ Completada |
 
 ---
 
@@ -93,6 +96,10 @@ Los archivos con `'status' => 'pending'` muestran un aviso informativo.
 | `/{locale}/noticias/{slug}` | `pages/noticias/show` | Detalle de noticia |
 | `/{locale}/horarios` | `pages/horarios` | Horarios litúrgicos |
 | `/{locale}/contacto` | `pages/contacto` | Datos de contacto |
+| `/{locale}/historia` | `pages/historia` | Historia y patrimonio |
+| `/{locale}/servicios` | `pages/servicios/index` | Catálogo de servicios pastorales |
+| `/{locale}/servicios/{slug}` | `pages/servicios/show` | Detalle de servicio |
+| `/{locale}/visita` | `pages/visita` | Planificación de visita |
 | `/{locale}/aviso-legal` | `pages/legal` | Aviso legal |
 | `/{locale}/privacidad` | `pages/legal` | Política de privacidad |
 | `/{locale}/accesibilidad` | `pages/legal` | Declaración de accesibilidad |
