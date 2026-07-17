@@ -133,6 +133,22 @@ it('renders footer with copyright year', function (): void {
         ->toContain('<footer');
 });
 
+it('renders footer with nav links for locale', function (): void {
+    $html = component('ui.footer', ['locale' => 'es', 'year' => 2025]);
+
+    expect($html)
+        ->toContain('href="/es/noticias"')
+        ->toContain('href="/es/horarios"')
+        ->toContain('href="/es/contacto"')
+        ->toContain('href="/es/sobre"');
+});
+
+it('renders footer with tagline text', function (): void {
+    $html = component('ui.footer', ['locale' => 'es', 'year' => 2025]);
+
+    expect($html)->toContain(__('general.footer_tagline'));
+});
+
 it('renders skip-link targeting main by default', function (): void {
     $html = component('ui.skip-link');
 

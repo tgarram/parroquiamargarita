@@ -88,6 +88,6 @@ $navItems = [
 
     <?= $content ?? '' ?>
 
-    <?= component('ui.footer') ?>
+    <?= component('ui.footer', ['locale' => $currentLocale]) ?>
 </body>
 </html>
