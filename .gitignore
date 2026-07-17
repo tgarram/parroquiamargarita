@@ -1,0 +1,9 @@
+/vendor/
+/node_modules/
+/public/build/
+/dist/
+/.env
+.DS_Store
+*.swp
+Thumbs.db
+.phpunit.result.cache
