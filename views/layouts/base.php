@@ -36,6 +36,16 @@ $navItems = [
         'href' => base_path('/'.$currentLocale.'/noticias'),
         'active' => str_starts_with($currentPath, '/noticias'),
     ],
+    [
+        'label' => __('general.schedules_title'),
+        'href' => base_path('/'.$currentLocale.'/horarios'),
+        'active' => $currentPath === '/horarios',
+    ],
+    [
+        'label' => __('general.contact_title'),
+        'href' => base_path('/'.$currentLocale.'/contacto'),
+        'active' => $currentPath === '/contacto',
+    ],
 ];
 ?>
     <?= component('ui.header', ['locale' => $currentLocale, 'path' => $currentPath, 'navItems' => $navItems]) ?>

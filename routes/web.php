@@ -53,6 +53,32 @@ return function (Router $router, Renderer $renderer): void {
                 );
             });
 
+            $r->get('/horarios', function (Request $req) use ($renderer, $locale): Response {
+                $horarios = content()->findAll('horarios', 'published');
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.horarios', [
+                        'title' => __('general.schedules_title'),
+                        'locale' => $locale,
+                        'path' => '/horarios',
+                        'horarios' => $horarios,
+                    ])
+                );
+            });
+
+            $r->get('/contacto', function (Request $req) use ($renderer, $locale): Response {
+                $contacto = content()->find('paginas', 'contacto', '*');
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.contacto', [
+                        'title' => __('general.contact_title'),
+                        'locale' => $locale,
+                        'path' => '/contacto',
+                        'contacto' => $contacto,
+                    ])
+                );
+            });
+
             $r->get('/laboratorio', fn (Request $req) => new Response(
                 $renderer->renderInLayout('layouts.base', 'pages.laboratorio', [
                     'title' => __('general.lab_title'),
