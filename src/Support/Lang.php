@@ -25,6 +25,8 @@ final class Lang
     {
         $dir = rtrim($langDir, '/').'/'.self::$locale;
 
+        self::$lines = [];
+
         if (! is_dir($dir)) {
             return;
         }

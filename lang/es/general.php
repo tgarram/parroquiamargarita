@@ -13,4 +13,7 @@ return [
     'footer_nav' => 'Navegación del pie de página',
     'nav_home' => 'Inicio',
     'page_not_found' => 'Página no encontrada',
+    'nav_open_menu' => 'Abrir menú de navegación',
+    'nav_close_menu' => 'Cerrar menú de navegación',
+    'nav_main' => 'Navegación principal',
 ];

@@ -10,10 +10,10 @@
     $currentLocale = $locale ?? config('app.locale', 'es');
 $currentPath = $path ?? '/';
 foreach (['es', 'ca', 'en'] as $loc) {
-    ?>
-    <link rel="alternate" hreflang="<?= e($loc) ?>" href="<?= e(config('app.url', '').'/'.e($loc).e($currentPath)) ?>">
-    <?php } ?>
-    <link rel="alternate" hreflang="x-default" href="<?= e(config('app.url', '').'/es'.e($currentPath)) ?>">
+    echo '<link rel="alternate" hreflang="'.e($loc).'" href="'.e(config('app.url', '').'/'.$loc.$currentPath).'">'."\n    ";
+}
+?>
+    <link rel="alternate" hreflang="x-default" href="<?= e(config('app.url', '').'/es'.$currentPath) ?>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,14 +24,16 @@ foreach (['es', 'ca', 'en'] as $loc) {
 <body x-data>
     <?= component('ui.skip-link') ?>
 
-    <header class="border-b border-[var(--color-border)] bg-[var(--color-background)]">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-            <a href="<?= e(base_path('/'.$currentLocale.'/')) ?>" class="font-serif text-sm font-semibold tracking-wide text-[var(--color-navy)]">
-                <?= e(__('general.site_name')) ?>
-            </a>
-            <?= component('ui.lang-switcher', ['current' => $currentLocale, 'path' => $currentPath]) ?>
-        </div>
-    </header>
+    <?php
+$navItems = [
+    [
+        'label' => __('general.nav_home'),
+        'href' => base_path('/'.$currentLocale.'/'),
+        'active' => $currentPath === '/',
+    ],
+];
+?>
+    <?= component('ui.header', ['locale' => $currentLocale, 'path' => $currentPath, 'navItems' => $navItems]) ?>
 
     <?= $content ?? '' ?>
 
