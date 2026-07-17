@@ -23,6 +23,36 @@ return function (Router $router, Renderer $renderer): void {
                 ])
             ));
 
+            $r->get('/noticias', function (Request $req) use ($renderer, $locale): Response {
+                $noticias = content()->findAll('noticias', 'published');
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.noticias.index', [
+                        'title' => __('general.news_title'),
+                        'locale' => $locale,
+                        'path' => '/noticias',
+                        'noticias' => $noticias,
+                    ])
+                );
+            });
+
+            $r->get('/noticias/{slug}', function (Request $req, string $slug) use ($renderer, $locale): Response {
+                $noticia = content()->find('noticias', $slug, 'published');
+
+                if ($noticia === null) {
+                    return Response::notFound();
+                }
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.noticias.show', [
+                        'title' => $noticia->trans('title', $locale),
+                        'locale' => $locale,
+                        'path' => '/noticias/'.$slug,
+                        'noticia' => $noticia,
+                    ])
+                );
+            });
+
             $r->get('/laboratorio', fn (Request $req) => new Response(
                 $renderer->renderInLayout('layouts.base', 'pages.laboratorio', [
                     'title' => __('general.lab_title'),

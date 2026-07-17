@@ -13,6 +13,7 @@ return [
     'footer_nav' => 'Footer navigation',
     'nav_home' => 'Home',
     'page_not_found' => 'Page not found',
+    'page_not_found_desc' => 'The page you are looking for does not exist or has been moved.',
     'nav_open_menu' => 'Open navigation menu',
     'nav_close_menu' => 'Close navigation menu',
     'nav_main' => 'Main navigation',
@@ -26,4 +27,9 @@ return [
     'home_contact_title' => 'Contact',
     'home_contact_subtitle' => 'To contact the parish, please use the official channels.',
     'home_contact_pending' => 'Contact details pending confirmation.',
+    'news_title' => 'News',
+    'news_empty' => 'No news published yet.',
+    'news_read_more' => 'Read more',
+    'news_back' => 'Back to news',
+    'news_published_on' => 'Published on',
 ];

@@ -49,9 +49,11 @@ $register($router, $renderer);
 try {
     $response = $router->dispatch($request);
 
-    if ($response->withStatus(404) === $response) {
+    if ($response->status === 404) {
         $body = $renderer->renderInLayout('layouts.base', 'errors.404', [
             'title' => __('general.page_not_found'),
+            'locale' => $locale,
+            'path' => $request->path,
         ]);
         $response = $response->withBody($body);
     }

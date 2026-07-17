@@ -31,6 +31,11 @@ $navItems = [
         'href' => base_path('/'.$currentLocale.'/'),
         'active' => $currentPath === '/',
     ],
+    [
+        'label' => __('general.news_title'),
+        'href' => base_path('/'.$currentLocale.'/noticias'),
+        'active' => str_starts_with($currentPath, '/noticias'),
+    ],
 ];
 ?>
     <?= component('ui.header', ['locale' => $currentLocale, 'path' => $currentPath, 'navItems' => $navItems]) ?>

@@ -13,6 +13,7 @@ return [
     'footer_nav' => 'Navegación del pie de página',
     'nav_home' => 'Inicio',
     'page_not_found' => 'Página no encontrada',
+    'page_not_found_desc' => 'La página que buscas no existe o ha sido movida.',
     'nav_open_menu' => 'Abrir menú de navegación',
     'nav_close_menu' => 'Cerrar menú de navegación',
     'nav_main' => 'Navegación principal',
@@ -26,4 +27,9 @@ return [
     'home_contact_title' => 'Contacto',
     'home_contact_subtitle' => 'Para ponerse en contacto con la parroquia, utilice los canales oficiales.',
     'home_contact_pending' => 'Datos de contacto pendientes de confirmación.',
+    'news_title' => 'Noticias',
+    'news_empty' => 'No hay noticias publicadas todavía.',
+    'news_read_more' => 'Leer más',
+    'news_back' => 'Volver a noticias',
+    'news_published_on' => 'Publicado el',
 ];
