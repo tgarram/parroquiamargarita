@@ -45,6 +45,9 @@ $router = new Router;
 $register = require dirname(__DIR__).'/routes/web.php';
 $register($router, $renderer);
 
+$registerRss = require dirname(__DIR__).'/routes/rss.php';
+$registerRss($router);
+
 // 8. Dispatch
 try {
     $response = $router->dispatch($request);

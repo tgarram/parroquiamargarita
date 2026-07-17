@@ -11,10 +11,13 @@ $year = $year ?? (int) date('Y');
 
 $navLinks = [
     ['label' => __('general.nav_home'),        'href' => base_path('/'.$locale.'/')],
-    ['label' => __('general.about_title'),     'href' => base_path('/'.$locale.'/sobre')],
+    ['label' => __('general.nav_history'),     'href' => base_path('/'.$locale.'/historia')],
+    ['label' => __('general.nav_services'),    'href' => base_path('/'.$locale.'/servicios')],
     ['label' => __('general.news_title'),      'href' => base_path('/'.$locale.'/noticias')],
     ['label' => __('general.schedules_title'), 'href' => base_path('/'.$locale.'/horarios')],
+    ['label' => __('general.nav_visit'),       'href' => base_path('/'.$locale.'/visita')],
     ['label' => __('general.contact_title'),   'href' => base_path('/'.$locale.'/contacto')],
+    ['label' => __('general.about_title'),     'href' => base_path('/'.$locale.'/sobre')],
 ];
 ?>
 <footer class="mt-24 border-t border-[--color-border] bg-[--color-surface]" role="contentinfo">

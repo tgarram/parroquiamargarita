@@ -25,6 +25,9 @@ $ogTitle = isset($title) ? e($title).' · '.e(config('app.name', '')) : e(config
     <meta name="description" content="<?= e($metaDesc) ?>">
     <link rel="canonical" href="<?= e($canonicalUrl) ?>">
 
+    <!-- 5a. RSS feed autodiscovery -->
+    <link rel="alternate" type="application/rss+xml" title="<?= e(config('app.name', '')) ?>" href="<?= e(config('app.url', '').'/feed.xml') ?>">
+
     <!-- 5. Hreflang alternates -->
     <?php foreach (['es', 'ca', 'en'] as $loc) { ?>
     <link rel="alternate" hreflang="<?= e($loc) ?>" href="<?= e(config('app.url', '').'/'.$loc.$currentPath) ?>">
