@@ -45,6 +45,22 @@ return function (Router $router, Renderer $renderer): void {
                     return Response::notFound();
                 }
 
+                $appUrl = config('app.url', '');
+                $pageUrl = $appUrl.'/'.$locale.'/noticias/'.$slug;
+                $jsonLd = [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'NewsArticle',
+                    'headline' => $noticia->trans('title', $locale) ?? '',
+                    'description' => $noticia->trans('excerpt', $locale) ?? '',
+                    'url' => $pageUrl,
+                    'inLanguage' => $locale,
+                    'publisher' => [
+                        '@type' => 'Organization',
+                        'name' => config('app.name', ''),
+                        'url' => $appUrl,
+                    ],
+                ];
+
                 return new Response(
                     $renderer->renderInLayout('layouts.base', 'pages.noticias.show', [
                         'title' => $noticia->trans('title', $locale),
@@ -52,6 +68,7 @@ return function (Router $router, Renderer $renderer): void {
                         'locale' => $locale,
                         'path' => '/noticias/'.$slug,
                         'noticia' => $noticia,
+                        'jsonLd' => $jsonLd,
                     ])
                 );
             });
