@@ -8,33 +8,27 @@ final class Response
 {
     /** @param array<string, string> $headers */
     public function __construct(
-        private string $body = '',
-        private int $status = 200,
+        public readonly string $body = '',
+        public readonly int $status = 200,
         private array $headers = ['Content-Type' => 'text/html; charset=UTF-8'],
     ) {}
 
     public function withStatus(int $status): static
     {
-        $clone = clone $this;
-        $clone->status = $status;
-
-        return $clone;
+        return new self($this->body, $status, $this->headers);
     }
 
     public function withHeader(string $name, string $value): static
     {
-        $clone = clone $this;
-        $clone->headers[$name] = $value;
+        $headers = $this->headers;
+        $headers[$name] = $value;
 
-        return $clone;
+        return new static($this->body, $this->status, $headers);
     }
 
     public function withBody(string $body): static
     {
-        $clone = clone $this;
-        $clone->body = $body;
-
-        return $clone;
+        return new static($body, $this->status, $this->headers);
     }
 
     public function send(): never

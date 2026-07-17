@@ -19,15 +19,22 @@ Env::load(dirname(__DIR__));
 // 2. Configuración
 Config::load(dirname(__DIR__).'/config');
 
-// 3. Locale
-Lang::setLocale((string) Config::get('app.locale', 'es'));
+// 3. Request temprano (necesario para detectar locale)
+$request = Request::fromGlobals();
+
+// 4. Detectar locale desde primer segmento de la URL
+/** @var string[] $supportedLocales */
+$supportedLocales = Config::get('app.locales', ['es', 'ca', 'en']);
+$firstSegment = explode('/', ltrim($request->path, '/'))[0] ?? '';
+$locale = in_array($firstSegment, $supportedLocales, true)
+    ? $firstSegment
+    : (string) Config::get('app.locale', 'es');
+
+Lang::setLocale($locale);
 Lang::load(dirname(__DIR__).'/lang');
 
-// 4. Assets (Vite manifest)
+// 5. Assets (Vite manifest)
 Vite::load((string) Config::get('vite.manifest'));
-
-// 5. Request
-$request = Request::fromGlobals();
 
 // 6. Infraestructura
 $renderer = new Renderer(dirname(__DIR__).'/views');
@@ -44,7 +51,7 @@ try {
 
     if ($response->withStatus(404) === $response) {
         $body = $renderer->renderInLayout('layouts.base', 'errors.404', [
-            'title' => 'Página no encontrada',
+            'title' => __('general.page_not_found'),
         ]);
         $response = $response->withBody($body);
     }

@@ -9,6 +9,8 @@ final class Router
     /** @var array<string, array<string, callable>> */
     private array $routes = [];
 
+    private string $prefix = '';
+
     public function get(string $path, callable $handler): void
     {
         $this->add('GET', $path, $handler);
@@ -19,9 +21,17 @@ final class Router
         $this->add('POST', $path, $handler);
     }
 
+    public function group(string $prefix, callable $callback): void
+    {
+        $previous = $this->prefix;
+        $this->prefix .= $prefix;
+        $callback($this);
+        $this->prefix = $previous;
+    }
+
     public function add(string $method, string $path, callable $handler): void
     {
-        $this->routes[strtoupper($method)][$path] = $handler;
+        $this->routes[strtoupper($method)][$this->prefix.$path] = $handler;
     }
 
     public function dispatch(Request $request): Response
@@ -36,7 +46,6 @@ final class Router
                 continue;
             }
 
-            // Extract only named string captures
             $params = array_filter(
                 $matches,
                 static fn ($k) => is_string($k),

@@ -12,4 +12,5 @@ return [
     'footer_rights' => 'Tots els drets reservats',
     'footer_nav' => 'Navegació del peu de pàgina',
     'nav_home' => 'Inici',
+    'page_not_found' => 'Pàgina no trobada',
 ];
