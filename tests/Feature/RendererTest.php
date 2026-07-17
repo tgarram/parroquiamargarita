@@ -18,13 +18,15 @@ it('throws when view does not exist', function (): void {
         ->toThrow(RuntimeException::class);
 });
 
-it('renders laboratorio page with design tokens section', function (): void {
+it('renders laboratorio page with design tokens sections', function (): void {
     $renderer = new Renderer(dirname(__DIR__, 2).'/views');
+    Renderer::register($renderer);
     $html = $renderer->render('pages.laboratorio', []);
 
     expect($html)
         ->toContain('Laboratorio de diseño')
         ->toContain('Tipografía')
         ->toContain('Paleta de colores')
-        ->toContain('WCAG');
+        ->toContain('12.1:1')
+        ->toContain('Norma AA');
 });

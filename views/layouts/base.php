@@ -13,8 +13,10 @@
     <?= vite('resources/js/app.js') ?>
 </head>
 <body x-data>
-    <a href="#main" class="skip-link"><?= __('general.skip_to_content') ?></a>
+    <?= component('ui.skip-link') ?>
 
     <?= $content ?? '' ?>
+
+    <?= component('ui.footer') ?>
 </body>
 </html>

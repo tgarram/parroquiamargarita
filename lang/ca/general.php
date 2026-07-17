@@ -7,4 +7,9 @@ return [
     'home_title' => 'Inici',
     'lab_title' => 'Laboratori de disseny',
     'site_name' => 'Parròquia Castrense de Santa Margalida',
+    'breadcrumb' => 'Ruta de navegació',
+    'close' => 'Tanca',
+    'footer_rights' => 'Tots els drets reservats',
+    'footer_nav' => 'Navegació del peu de pàgina',
+    'nav_home' => 'Inici',
 ];

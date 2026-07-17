@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Parroquia\Support\Config;
 use Parroquia\Support\Lang;
 use Parroquia\Support\Vite;
+use Parroquia\View\Renderer;
 
 if (! function_exists('__')) {
     function __(string $key, array $replace = []): string
@@ -31,5 +32,12 @@ if (! function_exists('e')) {
     function e(string $value): string
     {
         return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    }
+}
+
+if (! function_exists('component')) {
+    function component(string $name, array $props = []): string
+    {
+        return Renderer::component($name, $props);
     }
 }

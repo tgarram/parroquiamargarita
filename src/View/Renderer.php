@@ -6,7 +6,23 @@ namespace Parroquia\View;
 
 final class Renderer
 {
+    private static ?self $instance = null;
+
     public function __construct(private readonly string $viewsDir) {}
+
+    public static function register(self $renderer): void
+    {
+        self::$instance = $renderer;
+    }
+
+    public static function component(string $name, array $props = []): string
+    {
+        if (self::$instance === null) {
+            return '';
+        }
+
+        return self::$instance->render('components.'.$name, $props);
+    }
 
     public function render(string $view, array $data = []): string
     {

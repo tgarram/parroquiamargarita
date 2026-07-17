@@ -31,6 +31,7 @@ $request = Request::fromGlobals();
 
 // 6. Infraestructura
 $renderer = new Renderer(dirname(__DIR__).'/views');
+Renderer::register($renderer);
 $router = new Router;
 
 // 7. Rutas

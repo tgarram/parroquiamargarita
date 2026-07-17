@@ -7,4 +7,9 @@ return [
     'home_title' => 'Inicio',
     'lab_title' => 'Laboratorio de diseño',
     'site_name' => 'Parroquia Castrense de Santa Margarita',
+    'breadcrumb' => 'Ruta de navegación',
+    'close' => 'Cerrar',
+    'footer_rights' => 'Todos los derechos reservados',
+    'footer_nav' => 'Navegación del pie de página',
+    'nav_home' => 'Inicio',
 ];
