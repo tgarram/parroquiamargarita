@@ -9,7 +9,7 @@
 | Fase | Nombre | Estado |
 |---|---|---|
 | 0 | Inicialización | ✅ Completada |
-| 1 | Design tokens y base visual | ⏳ Pendiente |
+| 1 | Design tokens y base visual | ✅ Completada |
 | 2 | Componentes de interfaz | ⏳ Pendiente |
 | 3 | Internacionalización | ⏳ Pendiente |
 | 4 | Layout global y navegación | ⏳ Pendiente |
