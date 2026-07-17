@@ -129,3 +129,24 @@ it('home page has json-ld script with ReligiousOrganization', function (): void 
         ->toContain('application/ld+json')
         ->toContain('ReligiousOrganization');
 });
+
+it('home page has favicon link', function (): void {
+    $router = makeHomeRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)->toContain('rel="icon"');
+});
+
+it('home page has theme-color meta', function (): void {
+    $router = makeHomeRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)->toContain('name="theme-color"');
+});
+
+it('home page loads Inter font stylesheet', function (): void {
+    $router = makeHomeRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)->toContain('family=Inter');
+});

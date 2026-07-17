@@ -21,21 +21,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up PHP
+      - name: Set up PHP 8.3
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
           tools: composer:v2
           coverage: none
 
-      - name: Set up Node
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-
+
+      - name: Install PHP dependencies
+        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Lint (Pint)
+        run: ./vendor/bin/pint --test
+
+      - name: Tests (Pest)
+        run: ./vendor/bin/pest --no-coverage
+
+      - name: Set up Node 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
-
-      - name: Install PHP dependencies
-        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Install Node dependencies
         run: npm ci
@@ -45,10 +58,12 @@ jobs:
 
       - name: Generate static site
         env:
-          APP_BASE_PATH: /parroquiamargarita
+          APP_NAME: "Parroquia Castrense de Santa Margarita"
+          APP_ENV: production
+          APP_DEBUG: 'false'
           APP_URL: https://tgarram.github.io/parroquiamargarita
+          APP_BASE_PATH: /parroquiamargarita
           APP_LOCALE: es
-          APP_DEBUG: false
         run: php bin/build-static.php
 
       - name: Upload Pages artifact

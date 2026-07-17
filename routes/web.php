@@ -115,6 +115,132 @@ return function (Router $router, Renderer $renderer): void {
                 );
             });
 
+            $r->get('/aviso-legal', function (Request $req) use ($renderer, $locale): Response {
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.legal', [
+                        'title' => __('general.legal_title'),
+                        'description' => __('general.meta_legal_description'),
+                        'locale' => $locale,
+                        'path' => '/aviso-legal',
+                        'page' => content()->find('paginas', 'aviso-legal', '*'),
+                        'titleKey' => 'general.legal_title',
+                        'subtitleKey' => 'general.legal_subtitle',
+                        'pendingKey' => 'general.legal_pending',
+                        'headingId' => 'legal-title',
+                    ])
+                );
+            });
+
+            $r->get('/privacidad', function (Request $req) use ($renderer, $locale): Response {
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.legal', [
+                        'title' => __('general.privacy_title'),
+                        'description' => __('general.meta_privacy_description'),
+                        'locale' => $locale,
+                        'path' => '/privacidad',
+                        'page' => content()->find('paginas', 'privacidad', '*'),
+                        'titleKey' => 'general.privacy_title',
+                        'subtitleKey' => 'general.privacy_subtitle',
+                        'pendingKey' => 'general.privacy_pending',
+                        'headingId' => 'privacy-title',
+                    ])
+                );
+            });
+
+            $r->get('/accesibilidad', function (Request $req) use ($renderer, $locale): Response {
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.legal', [
+                        'title' => __('general.accessibility_title'),
+                        'description' => __('general.meta_accessibility_description'),
+                        'locale' => $locale,
+                        'path' => '/accesibilidad',
+                        'page' => content()->find('paginas', 'accesibilidad', '*'),
+                        'titleKey' => 'general.accessibility_title',
+                        'subtitleKey' => 'general.accessibility_subtitle',
+                        'pendingKey' => 'general.accessibility_pending',
+                        'headingId' => 'accessibility-title',
+                    ])
+                );
+            });
+
+            $r->get('/historia', function (Request $req) use ($renderer, $locale): Response {
+                $historia = content()->find('paginas', 'historia', '*');
+                $timeline = content()->findAll('historia', 'published');
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.historia', [
+                        'title' => __('general.history_title'),
+                        'description' => __('general.meta_history_description'),
+                        'locale' => $locale,
+                        'path' => '/historia',
+                        'historia' => $historia,
+                        'timeline' => $timeline,
+                    ])
+                );
+            });
+
+            $r->get('/servicios', function (Request $req) use ($renderer, $locale): Response {
+                $servicios = content()->findAll('servicios', '*');
+
+                usort($servicios, static fn ($a, $b) => ($a->get('order', 99)) <=> ($b->get('order', 99)));
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.servicios.index', [
+                        'title' => __('general.services_title'),
+                        'description' => __('general.meta_services_description'),
+                        'locale' => $locale,
+                        'path' => '/servicios',
+                        'servicios' => $servicios,
+                    ])
+                );
+            });
+
+            $r->get('/servicios/{slug}', function (Request $req, string $slug) use ($renderer, $locale): Response {
+                $servicio = content()->find('servicios', $slug, '*');
+
+                if ($servicio === null) {
+                    return Response::notFound();
+                }
+
+                $appUrl = config('app.url', '');
+                $jsonLd = [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'Service',
+                    'name' => $servicio->trans('title', $locale) ?? '',
+                    'description' => $servicio->trans('description', $locale) ?? '',
+                    'provider' => [
+                        '@type' => 'ReligiousOrganization',
+                        'name' => config('app.name', ''),
+                        'url' => $appUrl,
+                    ],
+                ];
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.servicios.show', [
+                        'title' => $servicio->trans('title', $locale),
+                        'description' => $servicio->trans('description', $locale) ?? __('general.meta_services_description'),
+                        'locale' => $locale,
+                        'path' => '/servicios/'.$slug,
+                        'servicio' => $servicio,
+                        'jsonLd' => $jsonLd,
+                    ])
+                );
+            });
+
+            $r->get('/visita', function (Request $req) use ($renderer, $locale): Response {
+                $visita = content()->find('paginas', 'visita', '*');
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.visita', [
+                        'title' => __('general.visit_title'),
+                        'description' => __('general.meta_visit_description'),
+                        'locale' => $locale,
+                        'path' => '/visita',
+                        'visita' => $visita,
+                    ])
+                );
+            });
+
             $r->get('/laboratorio', fn (Request $req) => new Response(
                 $renderer->renderInLayout('layouts.base', 'pages.laboratorio', [
                     'title' => __('general.lab_title'),
