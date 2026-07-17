@@ -132,7 +132,7 @@ echo "  OK    / → dist/index.html (redirect)\n";
 // ---------------------------------------------------------------------------
 $sitemapUrl = rtrim((string) Config::get('app.url', ''), '/');
 $sitemapLocales = ['es', 'ca', 'en'];
-$sitemapPaths = ['/', '/historia', '/servicios', '/noticias', '/horarios', '/visita', '/contacto'];
+$sitemapPaths = ['/', '/historia', '/servicios', '/noticias', '/horarios', '/visita', '/contacto', '/sobre', '/aviso-legal', '/privacidad', '/accesibilidad'];
 
 foreach ($noticiasSlugs as $slug) {
     $sitemapPaths[] = '/noticias/'.$slug;
@@ -162,6 +162,45 @@ XML;
 
 file_put_contents($distDir.'/sitemap.xml', $sitemap);
 echo "  OK    sitemap.xml\n";
+
+// ---------------------------------------------------------------------------
+// RSS feed
+// ---------------------------------------------------------------------------
+$rssUrl = rtrim((string) Config::get('app.url', ''), '/');
+$rssName = Config::get('app.name', '');
+$rssItems = '';
+
+Lang::setLocale('es');
+Lang::load(dirname(__DIR__).'/lang');
+
+foreach ((new ContentRepository(Config::get('content.path')))->findAll('noticias', 'published') as $noticia) {
+    $title = htmlspecialchars($noticia->trans('title', 'es') ?? '', ENT_XML1 | ENT_QUOTES, 'UTF-8');
+    $link = $rssUrl.'/es/noticias/'.$noticia->slug;
+    $desc = htmlspecialchars($noticia->trans('excerpt', 'es') ?? '', ENT_XML1 | ENT_QUOTES, 'UTF-8');
+    $rssItems .= "    <item>\n";
+    $rssItems .= "      <title>{$title}</title>\n";
+    $rssItems .= "      <link>{$link}</link>\n";
+    $rssItems .= "      <guid>{$link}</guid>\n";
+    $rssItems .= "      <description>{$desc}</description>\n";
+    $rssItems .= "    </item>\n";
+}
+
+$rssSiteName = htmlspecialchars($rssName, ENT_XML1 | ENT_QUOTES, 'UTF-8');
+$rssXml = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{$rssSiteName}</title>
+    <link>{$rssUrl}/es/</link>
+    <description>Noticias de {$rssSiteName}</description>
+    <language>es</language>
+    <atom:link href="{$rssUrl}/feed.xml" rel="self" type="application/rss+xml"/>
+{$rssItems}  </channel>
+</rss>
+XML;
+
+file_put_contents($distDir.'/feed.xml', $rssXml);
+echo "  OK    feed.xml\n";
 
 // Copy robots.txt
 $robotsSrc = dirname(__DIR__).'/public/robots.txt';
