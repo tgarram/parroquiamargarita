@@ -10,7 +10,7 @@ use Parroquia\View\Renderer;
 return function (Router $router, Renderer $renderer): void {
 
     // Root → default locale
-    $router->get('/', fn (Request $r) => Response::redirect('/es/'));
+    $router->get('/', fn (Request $r) => Response::redirect(base_path('/es/')));
 
     foreach (['es', 'ca', 'en'] as $locale) {
         $router->group('/'.$locale, function (Router $r) use ($renderer, $locale): void {

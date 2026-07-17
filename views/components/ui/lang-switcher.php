@@ -16,7 +16,7 @@ $locales = [
         ><?= e(strtoupper($code)) ?></span>
     <?php } else { ?>
         <a
-            href="<?= e('/'.$code.$path) ?>"
+            href="<?= e(base_path('/'.$code.$path)) ?>"
             hreflang="<?= e($code) ?>"
             class="px-2 py-1 text-xs font-medium rounded text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface)] transition-colors"
         ><?= e(strtoupper($code)) ?></a>

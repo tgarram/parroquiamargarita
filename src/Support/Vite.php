@@ -56,11 +56,11 @@ final class Vite
         $html = '';
 
         foreach ($chunk['css'] ?? [] as $css) {
-            $href = htmlspecialchars('/build/'.$css, ENT_QUOTES);
+            $href = htmlspecialchars(base_path('/build/'.$css), ENT_QUOTES);
             $html .= "<link rel=\"stylesheet\" href=\"{$href}\">\n";
         }
 
-        $src = htmlspecialchars('/build/'.$chunk['file'], ENT_QUOTES);
+        $src = htmlspecialchars(base_path('/build/'.$chunk['file']), ENT_QUOTES);
         $html .= "<script type=\"module\" src=\"{$src}\"></script>\n";
 
         return $html;

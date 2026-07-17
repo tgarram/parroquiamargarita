@@ -41,3 +41,12 @@ if (! function_exists('component')) {
         return Renderer::component($name, $props);
     }
 }
+
+if (! function_exists('base_path')) {
+    function base_path(string $path = '/'): string
+    {
+        $base = rtrim((string) Config::get('app.base_path', ''), '/');
+
+        return $base.'/'.ltrim($path, '/');
+    }
+}

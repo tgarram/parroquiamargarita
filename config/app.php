@@ -10,4 +10,5 @@ return [
     'locales' => ['es', 'ca', 'en'],
     'debug' => Env::get('APP_DEBUG', false),
     'url' => Env::get('APP_URL', 'http://localhost:8000'),
+    'base_path' => Env::get('APP_BASE_PATH', ''),
 ];
