@@ -57,26 +57,31 @@ echo component('ui.json-ld', ['schema' => $ldSchema]);
 
     <?php
 $navItems = [
-[
-    'label' => __('general.nav_home'),
-    'href' => base_path('/'.$currentLocale.'/'),
-    'active' => $currentPath === '/',
-],
-[
-    'label' => __('general.news_title'),
-    'href' => base_path('/'.$currentLocale.'/noticias'),
-    'active' => str_starts_with($currentPath, '/noticias'),
-],
-[
-    'label' => __('general.schedules_title'),
-    'href' => base_path('/'.$currentLocale.'/horarios'),
-    'active' => $currentPath === '/horarios',
-],
-[
-    'label' => __('general.contact_title'),
-    'href' => base_path('/'.$currentLocale.'/contacto'),
-    'active' => $currentPath === '/contacto',
-],
+    [
+        'label' => __('general.nav_home'),
+        'href' => base_path('/'.$currentLocale.'/'),
+        'active' => $currentPath === '/',
+    ],
+    [
+        'label' => __('general.news_title'),
+        'href' => base_path('/'.$currentLocale.'/noticias'),
+        'active' => str_starts_with($currentPath, '/noticias'),
+    ],
+    [
+        'label' => __('general.about_title'),
+        'href' => base_path('/'.$currentLocale.'/sobre'),
+        'active' => $currentPath === '/sobre',
+    ],
+    [
+        'label' => __('general.schedules_title'),
+        'href' => base_path('/'.$currentLocale.'/horarios'),
+        'active' => $currentPath === '/horarios',
+    ],
+    [
+        'label' => __('general.contact_title'),
+        'href' => base_path('/'.$currentLocale.'/contacto'),
+        'active' => $currentPath === '/contacto',
+    ],
 ];
 ?>
     <?= component('ui.header', ['locale' => $currentLocale, 'path' => $currentPath, 'navItems' => $navItems]) ?>

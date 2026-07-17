@@ -52,4 +52,8 @@ return [
     'meta_news_description' => 'Noticias y comunicados de la Parroquia Castrense de Santa Margarita de Mallorca.',
     'meta_schedules_description' => 'Horarios de misas y celebraciones litúrgicas de la Parroquia Castrense de Santa Margarita.',
     'meta_contact_description' => 'Información de contacto de la Parroquia Castrense de Santa Margarita de Mallorca.',
+    'about_title' => 'Sobre la Parroquia',
+    'about_subtitle' => 'Historia e identidad de la Parroquia Castrense de Santa Margarita.',
+    'about_pending' => 'La información sobre la parroquia está pendiente de confirmación oficial.',
+    'meta_about_description' => 'Conoce la historia y la misión de la Parroquia Castrense de Santa Margarita de Mallorca.',
 ];

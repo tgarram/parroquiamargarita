@@ -52,4 +52,8 @@ return [
     'meta_news_description' => 'News and announcements from the Military Parish of Saint Margaret of Mallorca.',
     'meta_schedules_description' => 'Mass and liturgical celebration schedules of the Military Parish of Saint Margaret.',
     'meta_contact_description' => 'Contact information for the Military Parish of Saint Margaret of Mallorca.',
+    'about_title' => 'About the Parish',
+    'about_subtitle' => 'History and identity of the Military Parish of Saint Margaret.',
+    'about_pending' => 'Information about the parish is pending official confirmation.',
+    'meta_about_description' => 'Learn about the history and mission of the Military Parish of Saint Margaret of Mallorca.',
 ];

@@ -87,6 +87,20 @@ return function (Router $router, Renderer $renderer): void {
                 );
             });
 
+            $r->get('/sobre', function (Request $req) use ($renderer, $locale): Response {
+                $sobre = content()->find('paginas', 'sobre-la-parroquia', '*');
+
+                return new Response(
+                    $renderer->renderInLayout('layouts.base', 'pages.sobre', [
+                        'title' => __('general.about_title'),
+                        'description' => __('general.meta_about_description'),
+                        'locale' => $locale,
+                        'path' => '/sobre',
+                        'sobre' => $sobre,
+                    ])
+                );
+            });
+
             $r->get('/contacto', function (Request $req) use ($renderer, $locale): Response {
                 $contacto = content()->find('paginas', 'contacto', '*');
 

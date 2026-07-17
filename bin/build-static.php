@@ -38,6 +38,7 @@ $distDir = dirname(__DIR__).'/dist';
 $baseRoutes = [
     ['/', 'index.html'],
     ['/noticias', 'noticias/index.html'],
+    ['/sobre', 'sobre/index.html'],
     ['/horarios', 'horarios/index.html'],
     ['/contacto', 'contacto/index.html'],
     ['/laboratorio', 'laboratorio/index.html'],
