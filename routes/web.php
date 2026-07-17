@@ -18,6 +18,7 @@ return function (Router $router, Renderer $renderer): void {
             $r->get('/', fn (Request $req) => new Response(
                 $renderer->renderInLayout('layouts.base', 'pages.home', [
                     'title' => __('general.home_title'),
+                    'description' => __('general.meta_home_description'),
                     'locale' => $locale,
                     'path' => '/',
                 ])
@@ -29,6 +30,7 @@ return function (Router $router, Renderer $renderer): void {
                 return new Response(
                     $renderer->renderInLayout('layouts.base', 'pages.noticias.index', [
                         'title' => __('general.news_title'),
+                        'description' => __('general.meta_news_description'),
                         'locale' => $locale,
                         'path' => '/noticias',
                         'noticias' => $noticias,
@@ -46,6 +48,7 @@ return function (Router $router, Renderer $renderer): void {
                 return new Response(
                     $renderer->renderInLayout('layouts.base', 'pages.noticias.show', [
                         'title' => $noticia->trans('title', $locale),
+                        'description' => $noticia->trans('excerpt', $locale) ?? __('general.meta_news_description'),
                         'locale' => $locale,
                         'path' => '/noticias/'.$slug,
                         'noticia' => $noticia,
@@ -59,6 +62,7 @@ return function (Router $router, Renderer $renderer): void {
                 return new Response(
                     $renderer->renderInLayout('layouts.base', 'pages.horarios', [
                         'title' => __('general.schedules_title'),
+                        'description' => __('general.meta_schedules_description'),
                         'locale' => $locale,
                         'path' => '/horarios',
                         'horarios' => $horarios,
@@ -72,6 +76,7 @@ return function (Router $router, Renderer $renderer): void {
                 return new Response(
                     $renderer->renderInLayout('layouts.base', 'pages.contacto', [
                         'title' => __('general.contact_title'),
+                        'description' => __('general.meta_contact_description'),
                         'locale' => $locale,
                         'path' => '/contacto',
                         'contacto' => $contacto,

@@ -47,4 +47,9 @@ return [
     'contact_phone' => 'Telèfon',
     'contact_email' => 'Correu electrònic',
     'contact_hours' => 'Horari d\'atenció',
+    'meta_site_description' => 'Parròquia Castrense de Santa Margalida de Mallorca. Acompanyant la comunitat militar i les seves famílies.',
+    'meta_home_description' => 'Parròquia Castrense de Santa Margalida de Mallorca. Horaris de misses, notícies i contacte.',
+    'meta_news_description' => 'Notícies i comunicats de la Parròquia Castrense de Santa Margalida de Mallorca.',
+    'meta_schedules_description' => 'Horaris de misses i celebracions litúrgiques de la Parròquia Castrense de Santa Margalida.',
+    'meta_contact_description' => 'Informació de contacte de la Parròquia Castrense de Santa Margalida de Mallorca.',
 ];

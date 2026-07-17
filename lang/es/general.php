@@ -47,4 +47,9 @@ return [
     'contact_phone' => 'Teléfono',
     'contact_email' => 'Correo electrónico',
     'contact_hours' => 'Horario de atención',
+    'meta_site_description' => 'Parroquia Castrense de Santa Margarita de Mallorca. Acompañando a la comunidad militar y a sus familias.',
+    'meta_home_description' => 'Parroquia Castrense de Santa Margarita de Mallorca. Horarios de misas, noticias y contacto.',
+    'meta_news_description' => 'Noticias y comunicados de la Parroquia Castrense de Santa Margarita de Mallorca.',
+    'meta_schedules_description' => 'Horarios de misas y celebraciones litúrgicas de la Parroquia Castrense de Santa Margarita.',
+    'meta_contact_description' => 'Información de contacto de la Parroquia Castrense de Santa Margarita de Mallorca.',
 ];

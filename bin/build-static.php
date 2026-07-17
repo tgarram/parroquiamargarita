@@ -109,6 +109,45 @@ file_put_contents($distDir.'/index.html', $html);
 echo "  OK    / → dist/index.html (redirect)\n";
 
 // ---------------------------------------------------------------------------
+// sitemap.xml
+// ---------------------------------------------------------------------------
+$sitemapUrl = rtrim((string) Config::get('app.url', ''), '/');
+$sitemapLocales = ['es', 'ca', 'en'];
+$sitemapPaths = ['/', '/noticias', '/horarios', '/contacto'];
+
+foreach ($noticiasSlugs as $slug) {
+    $sitemapPaths[] = '/noticias/'.$slug;
+}
+
+$xmlUrls = '';
+foreach ($sitemapPaths as $sitemapPath) {
+    // Primary URL (es)
+    $loc = $sitemapUrl.'/es'.$sitemapPath;
+    $xmlUrls .= "  <url>\n    <loc>".htmlspecialchars($loc, ENT_XML1)."</loc>\n";
+    foreach ($sitemapLocales as $loc2) {
+        $xmlUrls .= '    <xhtml:link rel="alternate" hreflang="'.htmlspecialchars($loc2, ENT_XML1).'" href="'.htmlspecialchars($sitemapUrl.'/'.$loc2.$sitemapPath, ENT_XML1).'"/>'."\n";
+    }
+    $xmlUrls .= "    <changefreq>weekly</changefreq>\n  </url>\n";
+}
+
+$sitemap = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{$xmlUrls}</urlset>
+XML;
+
+file_put_contents($distDir.'/sitemap.xml', $sitemap);
+echo "  OK    sitemap.xml\n";
+
+// Copy robots.txt
+$robotsSrc = dirname(__DIR__).'/public/robots.txt';
+if (file_exists($robotsSrc)) {
+    copy($robotsSrc, $distDir.'/robots.txt');
+    echo "  OK    robots.txt\n";
+}
+
+// ---------------------------------------------------------------------------
 // .nojekyll (needed for assets with _ or . prefixes on GitHub Pages)
 // ---------------------------------------------------------------------------
 file_put_contents($distDir.'/.nojekyll', '');

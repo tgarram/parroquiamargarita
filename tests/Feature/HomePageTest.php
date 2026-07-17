@@ -93,3 +93,19 @@ it('home page renders correctly in english', function () use ($langDir): void {
         ->toContain('Military Parish of Saint Margaret')
         ->toContain('Schedules');
 });
+
+it('home page has meta description tag', function (): void {
+    $router = makeHomeRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)->toContain('<meta name="description"')
+        ->and($response->body)->toContain(__('general.meta_home_description'));
+});
+
+it('home page has canonical link tag', function (): void {
+    $router = makeHomeRouter();
+    $response = $router->dispatch(new Request('GET', '/es/', [], [], []));
+
+    expect($response->body)->toContain('<link rel="canonical"')
+        ->and($response->body)->toContain('/es/');
+});

@@ -47,4 +47,9 @@ return [
     'contact_phone' => 'Phone',
     'contact_email' => 'Email',
     'contact_hours' => 'Office hours',
+    'meta_site_description' => 'Military Parish of Saint Margaret of Mallorca. Accompanying the military community and their families.',
+    'meta_home_description' => 'Military Parish of Saint Margaret of Mallorca. Mass schedules, news and contact.',
+    'meta_news_description' => 'News and announcements from the Military Parish of Saint Margaret of Mallorca.',
+    'meta_schedules_description' => 'Mass and liturgical celebration schedules of the Military Parish of Saint Margaret.',
+    'meta_contact_description' => 'Contact information for the Military Parish of Saint Margaret of Mallorca.',
 ];
