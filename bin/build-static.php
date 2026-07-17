@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
+use Parroquia\Content\ContentRepository;
 use Parroquia\Http\Request;
 use Parroquia\Http\Router;
 use Parroquia\Support\Config;
@@ -34,14 +35,29 @@ $distDir = dirname(__DIR__).'/dist';
 // ---------------------------------------------------------------------------
 // Routes to render: [locale, path, output file]
 // ---------------------------------------------------------------------------
-$routes = [
-    ['es', '/',            'es/index.html'],
-    ['ca', '/',            'ca/index.html'],
-    ['en', '/',            'en/index.html'],
-    ['es', '/laboratorio', 'es/laboratorio/index.html'],
-    ['ca', '/laboratorio', 'ca/laboratorio/index.html'],
-    ['en', '/laboratorio', 'en/laboratorio/index.html'],
+$baseRoutes = [
+    ['/', 'index.html'],
+    ['/noticias', 'noticias/index.html'],
+    ['/laboratorio', 'laboratorio/index.html'],
 ];
+
+// Añadir rutas de detalle de noticias publicadas
+$noticiasSlugs = array_map(
+    static fn ($item) => $item->slug,
+    (new ContentRepository(Config::get('content.path')))->findAll('noticias', 'published')
+);
+
+$routes = [];
+
+foreach (['es', 'ca', 'en'] as $loc) {
+    foreach ($baseRoutes as [$path, $output]) {
+        $routes[] = [$loc, $path, $loc.'/'.$output];
+    }
+
+    foreach ($noticiasSlugs as $slug) {
+        $routes[] = [$loc, '/noticias/'.$slug, $loc.'/noticias/'.$slug.'/index.html'];
+    }
+}
 
 // ---------------------------------------------------------------------------
 // Render

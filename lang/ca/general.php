@@ -13,6 +13,7 @@ return [
     'footer_nav' => 'Navegació del peu de pàgina',
     'nav_home' => 'Inici',
     'page_not_found' => 'Pàgina no trobada',
+    'page_not_found_desc' => 'La pàgina que cerques no existeix o ha estat moguda.',
     'nav_open_menu' => 'Obrir menú de navegació',
     'nav_close_menu' => 'Tancar menú de navegació',
     'nav_main' => 'Navegació principal',
@@ -26,4 +27,9 @@ return [
     'home_contact_title' => 'Contacte',
     'home_contact_subtitle' => 'Per posar-se en contacte amb la parròquia, utilitzeu els canals oficials.',
     'home_contact_pending' => 'Dades de contacte pendents de confirmació.',
+    'news_title' => 'Notícies',
+    'news_empty' => 'Encara no hi ha notícies publicades.',
+    'news_read_more' => 'Llegir més',
+    'news_back' => 'Tornar a notícies',
+    'news_published_on' => 'Publicat el',
 ];
